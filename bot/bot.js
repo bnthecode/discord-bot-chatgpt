@@ -1,17 +1,19 @@
-import { ActivityType, Client, GatewayIntentBits } from "discord.js";
+import { ActivityType, Client, GatewayIntentBits, Partials } from "discord.js";
 import environment from "../secrets.js";
 import openai, { baseDialogConfig } from "./open_ai/open_ai.js";
 
-const { discord_secret, bot_name, bot_channel_id } = environment;
+const { discord_secret, bot_name, bot_channel_ids } = environment;
 
 class Bot {
   constructor() {
     this.client = new Client({
       intents: [
+        GatewayIntentBits.DirectMessages,
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.MessageContent,
       ],
+      partials: [Partials.Channel, Partials.Message],
     });
   }
 
@@ -53,7 +55,7 @@ class Bot {
   };
 
   validateMessage = ({ author, channelId }) =>
-    !author.bot && channelId === bot_channel_id;
+    !author.bot && bot_channel_ids.includes(channelId);
 
   sendMessage = async (message) => {
     try {
