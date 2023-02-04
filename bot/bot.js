@@ -74,7 +74,9 @@ class Bot {
         ...baseDialogConfig,
         prompt: input.content,
       });
-      return completion.data.choices[0].text;
+      const result = completion.data.choices[0].text;
+      console.log(completion.data);
+      return result;
     } catch (error) {
       console.log(`Error generating openAI dialog: ${error}`);
     }

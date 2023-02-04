@@ -5,9 +5,9 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 export const baseDialogConfig = {
-  model: "text-davinci-003",
+  model: "text-babbage-001",
   max_tokens: 2000,
-  temperature: 0.9,
+  temperature: 1,
   top_p: 1,
   frequency_penalty: 0.5,
   presence_penalty: 0.0,
